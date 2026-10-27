@@ -1,0 +1,38 @@
+name: ${STUDENT_ID:?Defina STUDENT_ID}-app
+
+services:
+  app:
+    image: ${APP_IMAGE:?Defina APP_IMAGE}
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:?Defina APP_PORT}:80"
+    environment:
+      APP_NAME: ${APP_NAME:-Laravel}
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: ${APP_KEY:?Defina APP_KEY}
+      APP_URL: ${APP_URL:?Defina APP_URL}
+      LOG_CHANNEL: stderr
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_DATABASE: ${DB_DATABASE:?Defina DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME:?Defina DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD}
+      SESSION_DRIVER: file
+      SESSION_SECURE_COOKIE: "false"
+      SESSION_COOKIE: ${STUDENT_ID:?Defina STUDENT_ID}_session
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
+    volumes:
+      - app_storage:/var/www/html/storage
+    networks:
+      - student
+
+volumes:
+  app_storage:
+
+networks:
+  student:
+    external: true
+    name: ${STUDENT_ID:?Defina STUDENT_ID}-net
