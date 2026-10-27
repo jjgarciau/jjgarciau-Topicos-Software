@@ -1,0 +1,33 @@
+{
+  "family": "randomquotes-task-juan-garcia",
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "executionRoleArn": "arn:aws:iam::102301143601:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "randomquotes",
+      "image": "102301143601.dkr.ecr.us-east-1.amazonaws.com/randomquotes-juan-garcia:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/randomquotes-juan-garcia",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
